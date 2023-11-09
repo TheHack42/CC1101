@@ -10,9 +10,12 @@
 
 
 //**************************** pins ******************************************//
-#define SS_PIN   10
-#define GDO2      6
-#define GDO0     99
+#define SS_PIN            10
+#define GDO2              6
+#define GDO0              99
+
+//**************************** slave selects *********************************//
+#define SPI_CHIP_SELECT   1
 
 /*----------------------[CC1100 - misc]---------------------------------------*/
 #define CRYSTAL_FREQUENCY         26000000
