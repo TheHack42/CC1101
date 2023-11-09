@@ -15,7 +15,7 @@
 #define GDO0              99
 
 //**************************** slave selects *********************************//
-#define SPI_CHIP_SELECT   1
+#define SPI_CHIP_SELECT   0
 
 /*----------------------[CC1100 - misc]---------------------------------------*/
 #define CRYSTAL_FREQUENCY         26000000
