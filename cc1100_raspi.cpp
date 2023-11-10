@@ -1005,7 +1005,7 @@ void CC1100::set_MHZ(float mhz)
 
 void CC1100::freq_to_reg(float freq, uint8_t *freq2, uint8_t *freq1, uint8_t *freq0) {
   // Convertit la fréquence en hexadécimal
-  uint32_t freq_hex = (uint32_t)(freq * 1000000 / 396.728515625 + 0.5);
+  uint32_t freq_hex = (uint32_t)(freq * 0x10000 / 26000000);
   // Extrait les valeurs de freq2, freq1 et freq0
   *freq2 = (freq_hex >> 16) & 0xFF;
   *freq1 = (freq_hex >> 8) & 0xFF;

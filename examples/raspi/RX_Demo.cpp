@@ -36,7 +36,8 @@ void print_help(int exval) {
 	printf("  -v              			set verbose flag\r\n");
 	printf("  -a my address [1-255] 		set my address\r\n\r\n");
 	printf("  -c channel 	[1-255] 		set transmit channel\r\n");
-	printf("  -f frequency  [315,434,868,915]  	set ISM band\r\n\r\n");
+	//printf("  -f frequency  [315,434,868,915]  	set ISM band\r\n\r\n");
+	printf("  -f frequency  [433.92, 433.42, ...]  	set ISM band\r\n\r\n");
 	printf("  -m modulation [1,38,100,250,500,4]	set modulation\r\n\r\n");
 
 	exit(exval);
