@@ -137,13 +137,13 @@ copy RX_Demo.cpp, TX_Demo.cpp, cc1100_raspi.cpp, cc1100_raspi.h in the same dire
 
 RX_Demo.cpp<br />
 ```
-sudo g++ -lwiringPi RX_Demo.cpp cc1100_raspi.cpp -o RX_Demo
+sudo g++ RX_Demo.cpp cc1100_raspi.cpp -o RX_Demo -lwiringPi
 sudo chmod 755 RX_Demo
 ```
 
 TX_Demo.cpp<br />
 ```
-sudo g++ -lwiringPi TX_Demo.cpp cc1100_raspi.cpp -o TX_Demo
+sudo g++ TX_Demo.cpp cc1100_raspi.cpp -o TX_Demo -lwiringPi
 sudo chmod 755 TX_Demo
 ```
 
