@@ -981,6 +981,56 @@ void CC1100::set_ISM(uint8_t ism_freq)
 }
 //-------------------------------[end]------------------------------------------
 
+//---------[set ISM Band 1=315MHz; 2=433MHz; 3=868MHz; 4=915MHz]----------------
+void CC1100::set_MHZ(float mhz)
+{
+    uint8_t freq2, freq1, freq0;
+
+    freq_to_reg(mhz, &freq2, &freq1, &freq0);
+    uint8_t patable_power[8] = get_patable_power(mhz);
+    spi_write_burst(PATABLE_BURST, patable_power, 8);
+
+    spi_write_register(FREQ2,freq2);                                         //stores the new freq setting for defined ISM band
+    spi_write_register(FREQ1,freq1);
+    spi_write_register(FREQ0,freq0);
+
+     return;
+}
+
+void CC1100::freq_to_reg(float freq, uint8_t *freq2, uint8_t *freq1, uint8_t *freq0) {
+  // Convertit la fréquence en hexadécimal
+  uint32_t freq_hex = (uint32_t)(freq * 1000000 / 396.728515625 + 0.5);
+  // Extrait les valeurs de freq2, freq1 et freq0
+  *freq2 = (freq_hex >> 16) & 0xFF;
+  *freq1 = (freq_hex >> 8) & 0xFF;
+  *freq0 = freq_hex & 0xFF;
+}
+
+uint8_t* CC1100::get_patable_power(float freq) {
+  // Définir les fréquences et les pa table power correspondantes
+  float freqs[4] = {315, 433, 868, 915}; // en MHz
+  uint8_t patable_power_315[8] = {0x17,0x1D,0x26,0x69,0x51,0x86,0xCC,0xC3};
+  uint8_t patable_power_433[8] = {0x6C,0x1C,0x06,0x3A,0x51,0x85,0xC8,0xC0};
+  uint8_t patable_power_868[8] = {0x03,0x17,0x1D,0x26,0x50,0x86,0xCD,0xC0};
+  uint8_t patable_power_915[8] = {0x0B,0x1B,0x6D,0x67,0x50,0x85,0xC9,0xC1};
+  uint8_t* patables[4] = {patable_power_315, patable_power_433, patable_power_868, patable_power_915};
+
+  // Trouver la fréquence la plus proche de la fréquence donnée
+  float min_diff = fabs(freq - freqs[0]); // différence minimale entre la fréquence donnée et les fréquences disponibles
+  int min_index = 0; // indice de la fréquence la plus proche
+  for (int i = 1; i < 4; i++) {
+    float diff = fabs(freq - freqs[i]); // différence entre la fréquence donnée et la fréquence courante
+    if (diff < min_diff) {
+      min_diff = diff; // mettre à jour la différence minimale
+      min_index = i; // mettre à jour l'indice de la fréquence la plus proche
+    }
+  }
+
+  // Renvoyer la pa table power correspondant à la fréquence la plus proche
+  return patables[min_index];
+}
+//-------------------------------[end]------------------------------------------
+
 //--------------------------[set frequency]-------------------------------------
 void CC1100::set_patable(uint8_t *patable_arr)
 {

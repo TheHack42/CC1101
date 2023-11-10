@@ -198,6 +198,7 @@ class CC1100
         void set_myaddr(uint8_t addr);
         void set_channel(uint8_t channel);
         void set_ISM(uint8_t ism_freq);
+        void set_MHZ(float mhz);
         void set_mode(uint8_t mode);
         void set_output_power_level(int8_t dbm);
         void set_patable(uint8_t *patable_arr);
@@ -208,6 +209,9 @@ class CC1100
         void set_manchester_encoding(uint8_t cfg);
         void set_sync_mode(uint8_t cfg);
         void set_datarate(uint8_t mdmcfg4, uint8_t mdmcfg3, uint8_t deviant);
+
+        void freq_to_reg(float freq, uint8_t *freq2, uint8_t *freq1, uint8_t *freq0);
+        uint8_t* get_patable_power(float freq);
 };
 
 
