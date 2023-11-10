@@ -10,6 +10,7 @@
 '-----------------------------------------------------------------------------*/
 #include "cc1100_raspi.h"
 #include <stdio.h>
+#include <cmath>
 #include <stdint.h>
 #include <string.h>
 #include <wiringPi.h>
