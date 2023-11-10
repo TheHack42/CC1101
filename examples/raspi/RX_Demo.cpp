@@ -20,7 +20,7 @@ uint8_t rx_addr,sender,lqi;
  int8_t rssi_dbm;
 
 
-int cc1100_freq_select, cc1100_mode_select, cc1100_channel_select;
+int cc1100_freq_select, cc1100_mode_select, cc1100_channel_select, cc1100_mhz_select;
 uint8_t cc1100_debug = 0;								//set CC1100 lib in no-debug output mode
 
 CC1100 cc1100;
@@ -73,6 +73,8 @@ int main(int argc, char *argv[]) {
 			cc1100_channel_select = atoi (optarg);
 			break;
 		case 'f':
+			cc1100_mhz_select = atof(optarg);
+			/*
 			cc1100_freq_select = atoi (optarg);
 			switch(cc1100_freq_select){
 				case 315:
@@ -87,7 +89,7 @@ int main(int argc, char *argv[]) {
 				case 915:
 					cc1100_freq_select = 4;
 					break;
-				}
+				}*/
 			break;
 			case 'm':
 				cc1100_mode_select = atoi (optarg);

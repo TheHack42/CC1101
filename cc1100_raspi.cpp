@@ -380,7 +380,7 @@ uint8_t CC1100::get_debug_level(void)
 uint8_t CC1100::begin(volatile uint8_t &My_addr)
 {
     uint8_t partnum, version;
-    extern int cc1100_freq_select, cc1100_mode_select, cc1100_channel_select;
+    extern int cc1100_freq_select, cc1100_mhz_select, cc1100_mode_select, cc1100_channel_select;
 
     pinMode(GDO0, INPUT);                 //setup AVR GPIO ports
     pinMode(GDO2, INPUT);
@@ -420,7 +420,10 @@ uint8_t CC1100::begin(volatile uint8_t &My_addr)
     set_mode(cc1100_mode_select);
 
     //set ISM band
-    set_ISM(cc1100_freq_select);
+    //set_ISM(cc1100_freq_select);
+    
+    //set ISM band (MHZ)
+    set_MHZ(cc1100_mhz_select);
 
     //set channel
     set_channel(cc1100_channel_select);
@@ -484,10 +487,11 @@ void CC1100::show_register_settings(void)
 void CC1100::show_main_settings(void)
 {
      extern volatile uint8_t My_addr;
-     extern int cc1100_mode_select, cc1100_freq_select, cc1100_channel_select;
+     extern int cc1100_mode_select, cc1100_freq_select, cc1100_mhz_select, cc1100_channel_select;
 
      printf("Mode: %d\r\n", cc1100_mode_select);
-     printf("Frequency: %d\r\n", cc1100_freq_select);
+     //printf("Frequency: %d\r\n", cc1100_freq_select);
+     printf("Frequency: %f\r\n", cc1100_mhz_select);
      printf("Channel: %d\r\n", cc1100_channel_select);
      printf("My_Addr: %d\r\n", My_addr);
 }
