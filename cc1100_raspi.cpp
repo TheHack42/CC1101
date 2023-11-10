@@ -987,7 +987,8 @@ void CC1100::set_MHZ(float mhz)
     uint8_t freq2, freq1, freq0;
 
     freq_to_reg(mhz, &freq2, &freq1, &freq0);
-    uint8_t patable_power[8] = get_patable_power(mhz);
+    uint8_t patable_power[8];
+    memcpy(patable_power, get_patable_power(mhz), 8);
     spi_write_burst(PATABLE_BURST, patable_power, 8);
 
     spi_write_register(FREQ2,freq2);                                         //stores the new freq setting for defined ISM band
